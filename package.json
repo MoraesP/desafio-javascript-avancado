@@ -1,0 +1,14 @@
+{
+  "name": "desafio-javascript",
+  "version": "1.0.0",
+  "description": "Desafio javascript avançado - FIAP",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pedro Moraes",
+  "license": "ISC",
+  "dependencies": {
+    "googleapis": "^144.0.0"
+  }
+}

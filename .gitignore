@@ -1,0 +1,53 @@
+# Dependências do Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Diretórios de build/output
+dist/
+build/
+out/
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+yarn.lock
+package-lock.json
+pids
+*.pid
+*.pid.lock
+
+# Arquivos temporários do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de cache
+.cache/
+.cache-loader/
+.parcel-cache/
+
+# Arquivos de teste e coverage
+coverage/
+*.lcov
+.nyc_output/
+jest-html-reports/
+
+# Arquivos de IDE e editores
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Arquivos de bundlers
+*.gz
+*.zip
+
+# Outros
+.eslintcache
+.prettiercache
