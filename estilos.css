@@ -1,0 +1,9 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 30px;
+}
+
+.espacamento {
+  gap: 15px;
+  display: grid;
+}

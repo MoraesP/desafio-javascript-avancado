@@ -1,23 +1,33 @@
+import { dados } from "./videos.js";
+
 const API_KEY = "AIzaSyDI45iLWM_lyHq0pSuTQcIUwutqYvSEHwU";
 const MAX_RESULTADO = 200;
 const MAX_POR_PAGINA = 50;
+let videos = [];
+
+const DIAS_DA_SEMANA = [
+  "Segunda-feira",
+  "Terça-feira",
+  "Quarta-feira",
+  "Quinta-feira",
+  "Sexta-feira",
+  "Sábado",
+  "Domingo",
+];
 
 function carregarCliente() {
-  gapi.client.setApiKey(API_KEY);
-  return (
-    gapi.client
-      .load("youtube", "v3")
-      .then(
-        async function () {
-          console.log("YouTube API carregada");
-          const videosIds = await searchVideos("javascript");
-          console.log(videosIds);
-        },
-        function (error) {
-          console.error("Erro ao carregar a API", error);
-        }
-      )
-  );
+  // gapi.client.setApiKey(API_KEY);
+  // return gapi.client.load("youtube", "v3").then(
+  //   async function () {
+  console.log("YouTube API carregada");
+  videos = dados;
+  // const videosIds = await searchVideos("javascript");
+  console.log(videos);
+  //   },
+  //   function (error) {
+  //     console.error("Erro ao carregar a API", error);
+  //   }
+  // );
 }
 
 async function searchVideos(query, totalVideos = [], pageToken = "") {
@@ -75,5 +85,101 @@ function formatarDuracao(duracao) {
     "0"
   )}:${seconds.padStart(2, "0")}`;
 }
+
+function converterParaSegundos(tempo) {
+  const partes = tempo.split(":");
+
+  const horas = parseInt(partes[0], 10) || 0;
+  const minutos = parseInt(partes[1], 10) || 0;
+  const segundos = parseInt(partes[2], 10) || 0;
+
+  return horas * 3600 + minutos * 60 + segundos;
+}
+
+function verificarCampos() {
+  const inputs = document.querySelectorAll('input[type="number"]');
+  const botaoEnviar = document.getElementById("btnEnviar");
+
+  const todosPreenchidos = Array.from(inputs).every(
+    (input) => input.value !== ""
+  );
+
+  botaoEnviar.disabled = !todosPreenchidos;
+}
+
+function enviarFormulario(event) {
+  event.preventDefault();
+  const inputs = document.querySelectorAll('input[type="number"]');
+  const valores = Array.from(inputs).map((input) => input.value);
+  let index = 0;
+  const videosNaSemana = [];
+  valores.forEach((tempo) => {
+    let proximo = false;
+    let tempoTotalVideos = 0;
+    const videosParaAssistir = [];
+    const tempoLivreNoDiaEmSegundos = tempo * 60;
+    if (index < videos.length) {
+      do {
+        proximo = false;
+        const video = videos[index];
+        const tempoVideo = converterParaSegundos(video.duracao);
+        if (tempoTotalVideos + tempoVideo < tempoLivreNoDiaEmSegundos) {
+          tempoTotalVideos += tempoVideo;
+          videosParaAssistir.push(video);
+          proximo = true;
+          index++;
+        }
+      } while (proximo);
+    }
+    videosNaSemana.push(videosParaAssistir);
+  });
+
+  const resultadoElement = document.getElementById("resultado");
+  resultadoElement.innerHTML = ""; // Limpa o conteúdo anterior
+  videosNaSemana.forEach((videosDoDia, i) => {
+    const diaDiv = document.createElement("div");
+    diaDiv.classList.add("dia-videos");
+    const diaTitulo = document.createElement("h3");
+    diaTitulo.textContent = `${DIAS_DA_SEMANA[i]}:`;
+    diaDiv.appendChild(diaTitulo);
+
+    if (videosDoDia.length > 0) {
+      videosDoDia.forEach((video) => {
+        const videoElement = document.createElement("div");
+        videoElement.classList.add("video-item");
+
+        const thumbnailImg = document.createElement("img");
+        thumbnailImg.src = video.thumbnail.url;
+        thumbnailImg.alt = video.titulo;
+        thumbnailImg.classList.add("thumbnail");
+
+        const videoInfo = document.createElement("p");
+        videoInfo.innerHTML = `<a href="${video.url}" target="_blank">${video.titulo}</a> (Duração: ${video.duracao})`;
+
+        videoElement.appendChild(thumbnailImg);
+        videoElement.appendChild(videoInfo);
+
+        diaDiv.appendChild(videoElement);
+      });
+    } else {
+      const semVideo = document.createElement("h3");
+      semVideo.textContent = "Sem vídeos";
+      diaDiv.appendChild(semVideo);
+    }
+
+    resultadoElement.appendChild(diaDiv);
+  });
+}
+
+function inicializarFormulario() {
+  const inputs = document.querySelectorAll('input[type="number"]');
+  inputs.forEach((input) => {
+    input.addEventListener("input", verificarCampos);
+  });
+  const formulario = document.querySelector("form");
+  formulario.addEventListener("submit", enviarFormulario);
+}
+
+document.addEventListener("DOMContentLoaded", inicializarFormulario);
 
 gapi.load("client", carregarCliente);
