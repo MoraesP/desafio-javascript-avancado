@@ -18,18 +18,33 @@
     </div>
     <form>
       <div class="espacamento">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="checkbox-mock"
+          />
+          <label class="form-check-label" for="checkbox-mock">
+            Usar dados mockados
+          </label>
+        </div>
         <div class="input-group flex-nowrap">
-          <span class="input-group-text" id="inputGroup-sizing-sm"
-            >Segunda</span
+          <span class="input-group-text" id="inputGroup-chave"
+            >Chave de busca</span
           >
           <input
-            type="number"
+            type="string"
+            id="valor-chave"
             class="form-control"
-            placeholder="Tempo em minutos"
+            placeholder="Insira um valor para busca..."
           />
         </div>
+        <button id="btnBuscar" class="btn btn-primary" type="button">
+          Buscar por chave
+        </button>
         <div class="input-group flex-nowrap">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Terça</span>
+          <span class="input-group-text" id="inputGroup-segunda">Segunda</span>
           <input
             type="number"
             class="form-control"
@@ -37,7 +52,7 @@
           />
         </div>
         <div class="input-group flex-nowrap">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Quarta</span>
+          <span class="input-group-text" id="inputGroup-terca">Terça</span>
           <input
             type="number"
             class="form-control"
@@ -45,7 +60,7 @@
           />
         </div>
         <div class="input-group flex-nowrap">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Quinta</span>
+          <span class="input-group-text" id="inputGroup-quarta">Quarta</span>
           <input
             type="number"
             class="form-control"
@@ -53,7 +68,7 @@
           />
         </div>
         <div class="input-group flex-nowrap">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Sexta</span>
+          <span class="input-group-text" id="inputGroup-quinta">Quinta</span>
           <input
             type="number"
             class="form-control"
@@ -61,7 +76,7 @@
           />
         </div>
         <div class="input-group flex-nowrap">
-          <span class="input-group-text" id="inputGroup-sizing-sm">Sábado</span>
+          <span class="input-group-text" id="inputGroup-sexta">Sexta</span>
           <input
             type="number"
             class="form-control"
@@ -69,9 +84,15 @@
           />
         </div>
         <div class="input-group flex-nowrap">
-          <span class="input-group-text" id="inputGroup-sizing-sm"
-            >Domingo</span
-          >
+          <span class="input-group-text" id="inputGroup-sabado">Sábado</span>
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Tempo em minutos"
+          />
+        </div>
+        <div class="input-group flex-nowrap">
+          <span class="input-group-text" id="inputGroup-domingo">Domingo</span>
           <input
             type="number"
             class="form-control"
@@ -79,7 +100,7 @@
           />
         </div>
         <button id="btnEnviar" class="btn btn-primary" type="submit" disabled>
-          Enviar tempo disponível
+          Videos não carregados
         </button>
         <div id="resultado"></div>
       </div>
