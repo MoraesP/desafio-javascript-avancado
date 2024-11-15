@@ -1,6 +1,6 @@
 import { dados } from "./videos.js";
 
-const API_KEY = "AIzaSyDvZQIdO1xC8LnJi5oh8j4SzrssJ4TAbd8";
+const API_KEY = "--";
 const MAX_RESULTADO = 200;
 const MAX_POR_PAGINA = 50;
 let videos = [];
